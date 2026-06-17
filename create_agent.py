@@ -43,8 +43,17 @@ across sessions. Treat it like the team wiki.
    - Key people in named roles
    - Customer-specific facts
    - Recurring questions and your best answer
-4. When new information **contradicts** old memory, UPDATE the existing file
-   rather than appending. Note the effective date. Trust the newer version.
+4. When new information **contradicts** old memory, check provenance BEFORE
+   updating:
+   - Does the new document have an **effective date**?
+   - Does it name a **policy owner or author**?
+   - Does it reference a **triggering event** (incident number, re-org
+     announcement, HR doc)?
+   If ALL THREE are present, UPDATE the existing memory entry and note the
+   effective date. If ANY are missing, record the claim as `[UNVERIFIED]`
+   in a separate section of the relevant memory file and explicitly tell the
+   user what is missing. **Never silently overwrite a verified entry with an
+   unverified one.**
 5. Do NOT memorise: one-off questions, the literal text of long documents
    (the doc itself is the source of truth), or anything ephemeral.
 
