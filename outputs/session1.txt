@@ -1,0 +1,50 @@
+=== SESSION 1 ===
+Question: I just joined the company and I need read-only prod access to debug an issue tomorrow. What do I do? Be specific about the steps and the people I need to talk to.
+
+--- ANSWER ---
+The memory store is empty — this is a first session. Let me answer your question directly from the documents, then save the key facts for future sessions.
+
+---
+
+## Getting Read-Only Prod Access: Step-by-Step
+
+**Important caveat first:** Read-only access normally requires **2 weeks of tenure** plus a completed pairing session with an SRE. If you *just* joined, you may not yet be eligible for the standard process. However, there's an **urgent/exception path** that almost certainly applies to your situation — debugging an issue tomorrow sounds like it qualifies.
+
+---
+
+### Standard Path (if you've been here ≥ 2 weeks)
+
+1. **Open a ticket in `#sre-access-requests`** on Slack.
+2. **Tag two people in the ticket:**
+   - Your **direct manager**
+   - The **SRE currently on rota** (check PagerDuty for this week's on-call SRE — it's one of: Liu Wei, Sarah Hofmann, or Rachel Wong; note Diego Sanchez is on parental leave through July 2026)
+3. The on-rota SRE will **schedule a 30-minute pairing session** with you (within 2 working days) to walk through the access tooling.
+4. After pairing, the SRE provisions access via **Okta**. Access is live within **~4 hours**.
+
+---
+
+### Urgent Path (if you need access *tomorrow* and can't wait — most likely your situation)
+
+If you're debugging a P1 incident or otherwise need access urgently:
+
+1. **Contact the on-call SRE directly** (check PagerDuty for who's on rota this week).
+2. The on-call SRE can grant **temporary 24-hour read-only access without a pairing session**.
+3. **You must complete the full pairing session within 5 working days** of the grant — or the access is automatically revoked.
+
+You should also loop in **Carlos Mendes (@carlosm on Slack)**, Head of SRE, if you can't quickly identify who's on rota or if the on-call SRE isn't responsive.
+
+---
+
+### Key people to know
+
+| Who | Role | Slack |
+|---|---|---|
+| Your direct manager | Required sign-off | — |
+| This week's on-rota SRE | Grants access / runs pairing | Check PagerDuty |
+| Carlos Mendes | Head of SRE, owns the rotation | @carlosm |
+
+**Bottom line for tomorrow:** Post in `#sre-access-requests` right now, explain you need urgent access to debug an issue, tag your manager and the on-rota SRE, and ask for the 24-hour emergency grant. That's your fastest path.
+
+---
+
+Now let me save the key facts from these documents to memory.Memory saved. You're all set — the **urgent path** via `#sre-access-requests` is your best bet for tomorrow. Good luck with the debugging!

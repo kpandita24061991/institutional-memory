@@ -1,0 +1,47 @@
+=== SESSION 2 ===
+Question: I just joined the company and I need read-only prod access to debug an issue tomorrow. What do I do? Be specific about the steps and the people I need to talk to.
+
+--- ANSWER ---
+Let me check my memory store first before answering.Good — I can see my memory has the old January 2026 policy and old org chart. The new documents change both significantly. Let me update memory first, then answer you.---
+
+**What changed from my previous answer:** The production access policy was completely overhauled effective **2026-05-15** (triggered by incident PROD-INC-04-2026). The old process — Slack ticket, SRE pairing session, 2-week tenure requirement — is gone. Here's what to do now:
+
+---
+
+## Getting read-only prod access as a new hire
+
+### ⚠️ First: check your tenure
+
+The minimum is **3 working days**. You can request access starting on **day 4**. If you joined yesterday or today and need access *tomorrow*, you may be blocked — see the escalation note at the bottom.
+
+---
+
+### The new self-serve process (effective 2026-05-15)
+
+**Step 1 — Get your manager's sign-off on the certification**
+Manager approval is required once, for the initial certification. Loop in your manager right away and ask them to approve you starting the "Prod Access Foundations" course.
+
+**Step 2 — Complete the "Prod Access Foundations" course**
+Go to the **BTS Learning portal** and take this course. It's self-paced, ~90 minutes. You'll need to pass the assessment at the end.
+
+**Step 3 — Request access via the IAM platform**
+The course completion email includes a link to the IAM platform. Submit your access request there. Access is granted **just-in-time in 4-hour windows** — so if you need it for a debugging session tomorrow, submit the request when you're ready to start.
+
+Your manager will be notified automatically. No further sign-off is needed beyond the initial certification approval.
+
+---
+
+### People involved
+
+| Who | Why |
+|---|---|
+| **Your direct manager** | Required for one-time certification approval; notified of each access request |
+| Nobody else required | The process is fully self-serve via the Learning portal + IAM platform |
+
+You do **not** need to contact SRE, open a Slack ticket, or schedule a pairing session.
+
+---
+
+### If you're still in your first 3 working days
+
+The new policy doesn't define a clear emergency path (the old 24-hour on-call SRE grant isn't mentioned). Talk to your manager immediately and ask them to escalate to **Carlos Mendes** (Head of SRE) for a judgment call on an exception.

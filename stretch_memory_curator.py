@@ -75,35 +75,64 @@ def main() -> None:
         curator_path.write_text(curator_id)
         print(f"Curator agent created: {curator_id}")
 
+    environment_id = Path(".environment_id").read_text().strip()
+    memory_store_id = Path(".memory_store_id").read_text().strip()
+
     # Run a curation session. In production this would be a scheduled Routine.
-    session = client.beta.sessions.create(agent=curator_id)
-    client.beta.sessions.events.send(
-        session.id,
-        events=[
+    session = client.beta.sessions.create(
+        agent=curator_id,
+        environment_id=environment_id,
+        title="Memory curation run",
+        resources=[
             {
-                "type": "user.message",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": (
-                            f"Curate the memory store of agent {main_agent_id}. "
-                            "Follow your standard process. Report back when done."
-                        ),
-                    }
-                ],
+                "type": "memory_store",
+                "memory_store_id": memory_store_id,
+                "access": "read_write",
+                "instructions": (
+                    "This is the main agent's memory store. Curate it: merge "
+                    "duplicates, prune stale entries, flag contradictions."
+                ),
             }
         ],
     )
 
     print("Curator working...")
     text_parts = []
-    for event in client.beta.sessions.events.stream(session.id):
-        if event.type == "agent.message_delta":
-            for block in event.delta.content:
-                if block.type == "text_delta":
-                    text_parts.append(block.text)
-        if event.type == "session.status_idle":
-            break
+    with client.beta.sessions.events.stream(session.id) as stream:
+        client.beta.sessions.events.send(
+            session.id,
+            events=[
+                {
+                    "type": "user.message",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": (
+                                "Curate the memory store mounted at /mnt/memory/. "
+                                "Follow your standard process. Report back when done."
+                            ),
+                        }
+                    ],
+                }
+            ],
+        )
+        for event in stream:
+            if event.type == "agent.message":
+                for block in event.content:
+                    if getattr(block, "type", None) == "text":
+                        text_parts.append(block.text)
+                        print(block.text, end="", flush=True)
+            elif event.type == "agent.tool_use":
+                name = getattr(event, "name", "?")
+                inp = getattr(event, "input", {}) or {}
+                target = inp.get("path") or inp.get("file_path") or inp.get("command") or ""
+                if "/mnt/memory" in str(target):
+                    print(f"\n  [memory: {name}  {target}]", flush=True)
+                else:
+                    print(f"\n  [{name}]", flush=True)
+            elif event.type == "session.status_idle":
+                print("\n\n[curator finished]")
+                break
 
     print("\n=== CURATOR REPORT ===")
     print("".join(text_parts))
